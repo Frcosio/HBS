@@ -20,7 +20,7 @@ const corsOptions = {
   origin: process.env.PATHHEROKU || "*",
   methods: ["GET", "POST"],
 };
-
+app.set("trust proxy", 1);
 app.use(cors(corsOptions));
 
 app.use(
