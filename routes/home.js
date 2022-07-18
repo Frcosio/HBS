@@ -1,17 +1,30 @@
-const express = require("express")
-const router = express.Router()
+var express = require('express');
 
-router.get("/",(req,res) => {
+const { leerUrls, 
+        agregarUrl, 
+        eliminarUrl,
+        editarUrlForm,
+        editarUrl,
+        redireccionamiento,
+     } = require("../controllers/homeController");
+const { formPerfil, editarFotoPerfil } = require('../controllers/perfilController');
 
-    const urls = [
-        {origin: "www.google.com/bluuweb1", shortUrl: "asdasd1"},
-        {origin: "www.google.com/bluuweb2", shortUrl: "asdasd2"},
-        {origin: "www.google.com/bluuweb3", shortUrl: "asdasd3"},
-        {origin: "www.google.com/bluuweb4", shortUrl: "asdasd4"},
-    ];
-    res.render("home", {urls: urls});
-    //nombre de la propiedad : el valor que contiene  
-});
+const urlValidar = require("../middlewares/urlValida");
+const verificarUser = require('../middlewares/verificarUser');
 
-module.exports = router
+const router = express.Router();
+//por eso el next es importante sin eso no lo indicamos
+//que continue al Sgte. middleware
+router.get("/", verificarUser, leerUrls);
+router.post("/", verificarUser, urlValidar, agregarUrl);
+router.get("/eliminar/:id", verificarUser, eliminarUrl);
+router.get("/editar/:id", verificarUser, editarUrlForm);
+router.post("/editar/:id", verificarUser, urlValidar, editarUrl);
+
+router.get("/perfil",verificarUser, formPerfil);
+router.post("/perfil",verificarUser, editarFotoPerfil);
+
+router.get("/:shortURL", redireccionamiento);
+
+module.exports = router;
 

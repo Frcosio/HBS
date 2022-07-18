@@ -1,8 +1,15 @@
-<h1 class="text-center my-5">Login de usuario</h1>
+<h1 class="text-center my-5">Registro de usuarios nuevos</h1>
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <form action="/auth/login" method="post">
+        <form action="/auth/register" method="post">
             <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+            <input  
+            class="form-control mb-2"
+            name="userName" 
+            placeholder="ingrese nombre"
+            type="text" 
+            value="frcosio"
+            >
             <input
             class="form-control mb-2"
             name="email"
@@ -17,7 +24,15 @@
             type="password"  
             value="123123"
             >
+            <input
+            class="form-control mb-2"
+            name="repassword"
+            placeholder="repita password"
+            type="password"  
+            value="123123"
+            >
             <button class="btn btn-primary" type="submit">Registrar usuario</button>
         </form>
     </div>
 </div>
+
